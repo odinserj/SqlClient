@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Data.Common;
 
 namespace Microsoft.Data.SqlClient
 {
@@ -66,6 +67,11 @@ namespace Microsoft.Data.SqlClient
             }
             catch (Exception e)
             {
+                if (!ADP.IsCatchableExceptionType(e))
+                {
+                    throw;
+                }
+
                 if (RetryLogic.RetryCondition(sender) && RetryLogic.TransientPredicate(e))
                 {
                     retryLogic ??= GetRetryLogic();
@@ -112,6 +118,11 @@ namespace Microsoft.Data.SqlClient
             }
             catch (Exception e)
             {
+                if (!ADP.IsCatchableExceptionType(e))
+                {
+                    throw;
+                }
+
                 if (RetryLogic.RetryCondition(sender) && RetryLogic.TransientPredicate(e))
                 {
                     retryLogic ??= GetRetryLogic();
@@ -157,6 +168,11 @@ namespace Microsoft.Data.SqlClient
             }
             catch (Exception e)
             {
+                if (!ADP.IsCatchableExceptionType(e))
+                {
+                    throw;
+                }
+
                 if (RetryLogic.RetryCondition(sender) && RetryLogic.TransientPredicate(e))
                 {
                     retryLogic ??= GetRetryLogic();
